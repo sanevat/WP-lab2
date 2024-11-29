@@ -1,0 +1,161 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Songs Homepage - Welcome to My Music Store</title>
+    <!-- Bootstrap 4.6 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-VjJ5GxCZ49WsnFfgvhPp3slD0ZGgtj37aAh7czpkl2zTpqrZZQvm0b8F2LItU8Wk" crossorigin="anonymous">
+    <style type="text/css">
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 2.5rem;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border: none;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            border-bottom: 2px solid #ddd;
+        }
+
+        th {
+            background-color: #5c6bc0;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e8eaf6;
+        }
+
+        .btn {
+            font-size: 0.9rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin: 5px;
+            text-transform: uppercase;
+        }
+
+        /* Custom Button Colors */
+        .btn-danger {
+            background-color: #08a20a; /* Hot pink */
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #51d81b; /* Darker hot pink */
+        }
+
+        .btn-info {
+            background-color: #00bcd4; /* Cyan */
+            color: white;
+        }
+
+        .btn-info:hover {
+            background-color: #0097a7; /* Darker cyan */
+        }
+
+        .btn-primary {
+            background-color: #ff9800; /* Amber */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #f57c00; /* Darker amber */
+        }
+
+        .add-product-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #39b858; /* Deep purple */
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .add-product-btn:hover {
+            background-color: #69b262; /* Darker deep purple */
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Song Title</th>
+            <th scope="col">Track ID</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Release Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="song : ${songs}" class="product">
+            <td th:text="${song.getTitle()}"></td>
+            <td th:text="${song.getTrackId()}"></td>
+            <td th:text="${song.getGenre()}"></td>
+            <td th:text="${song.getReleaseYear()}"></td>
+            <td class="text-right">
+                <th:block>
+                    <form th:action="@{'/songs/delete/{id}' (id=${song.getId()})}"
+                          th:method="DELETE">
+                        <button type="submit"
+                                class="btn btn-sm btn-danger delete-product">
+                            <i class="fa fa-trash">Delete</i>
+                        </button>
+                    </form>
+                </th:block>
+                <th:block>
+                    <a th:href="@{'/songs/edit-form/{id}' (id=${song.getId()})}"
+                       class="btn btn-sm btn-info edit-product">
+                        <i class="fa fa-edit">Edit</i>
+                    </a>
+                </th:block>
+                <th:block>
+                    <a th:href="@{'/songs/song-details/{id}' (id=${song.getId()})}" class="btn btn-sm btn-primary edit-product">
+                        <i class="fa fa-info-circle">Details</i>
+                    </a>
+                </th:block>
+                <th:block>
+                    <a th:href="@{'/artists/artist-to-song?songId={id}' (id=${song.getId()})}" class="btn btn-sm btn-info edit-product">
+                        <i class="fa fa-user-plus">Add Artists</i>
+                    </a>
+                </th:block>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/songs/add-form" class="btn add-product-btn">
+        Add new song
+    </a>
+</div>
+
+<!-- Bootstrap 4.6 JS (Optional) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEJRAOG6aCk9jHK9kDvwVZ2snXosGv2lQ0OqGGaZp54vduZ7JAtX9MxtHfKKf" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-3GqzF9ZXe6i4AqU+x2mVV5OExL3rTLGTG5XDN8IH0bttZmFt8BGzdy3Plq3bV/gV" crossorigin="anonymous"></script>
+</body>
+</html>
